@@ -1,33 +1,30 @@
 #!/usr/bin/env python3
-"""Entry point for the 20 November 2026 news-image entry.
+"""Entry point: copy the pre-rendered front page to the output path.
 
-The picture itself is rendered by draw.py (Pillow, run locally). This
-script only places the finished PNG where the grader looks for it, so
-every run of the entry writes byte-identical output. No network, no
-arguments: the output directory comes from MAKEFUN_OUTPUT_DIR, or
-defaults to /output.
+The image itself is drawn by draw.py at build time (pure PIL, no
+network) and shipped in this repository as entry.png. This program
+only copies those exact bytes, so two runs always agree.
 """
+
 import os
 import shutil
 import sys
-from pathlib import Path
-
-ENTRY = Path(__file__).resolve().parent / "entry.png"
-MAX_BYTES = 1_048_576
 
 
-def place_image() -> int:
-    out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
-    out_dir.mkdir(parents=True, exist_ok=True)
-    destination = out_dir / "entry.png"
-    shutil.copyfile(ENTRY, destination)
-    size = destination.stat().st_size
-    if size > MAX_BYTES:
-        print(f"entry.png too large: {size} bytes", file=sys.stderr)
-        return 1
-    print(f"wrote {destination} ({size} bytes)")
+def main():
+    here = os.path.dirname(os.path.abspath(__file__))
+    src = os.path.join(here, "entry.png")
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    dst = os.path.join(out_dir, "entry.png")
+    shutil.copyfile(src, dst)
+    src_bytes = os.path.getsize(src)
+    dst_bytes = os.path.getsize(dst)
+    if src_bytes != dst_bytes:
+        raise SystemExit("copy mismatch: %d != %d" % (src_bytes, dst_bytes))
+    print("wrote %s (%d bytes)" % (dst, dst_bytes))
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(place_image())
+    sys.exit(main())
