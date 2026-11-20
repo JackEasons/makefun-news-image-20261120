@@ -110,7 +110,7 @@ PANELS = [
     {
         "kick": "2  \u2022  NORTH KOREA",
         "head": ("Missile fired toward", "the Sea of Japan"),
-        "body": "North Korea launches a ballistic missile, South Korea reports.",
+        "body": "Pyongyang fires a ballistic missile toward the Sea of Japan, Seoul reports.",
         "color": "crimson",
     },
     {
@@ -122,7 +122,7 @@ PANELS = [
     {
         "kick": "4  \u2022  UKRAINE AID",
         "head": ("UK sends \u00a3260m,", "1,000+ drones"),
-        "body": "London pledges long-range drones and more aid for Kyiv.",
+        "body": "Britain sends long-range drones and more aid to Kyiv.",
         "color": "steel",
     },
     {
