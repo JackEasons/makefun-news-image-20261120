@@ -5,34 +5,25 @@
 [![reward](https://make.fun/badge/news-image-20261120/JackEasons/makefun-news-image-20261120/reward.svg)](https://make.fun/bounty/news-image-20261120?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261120)
 
 One image summing up the world's news of Friday 20 November 2026 —
-33 stories on a single front page of THE WORLD TODAY.
+33 stories on a single front page of THE WORLD TODAY. The lead is
+Cyclone Akvan's landfall at Gopalpur (440,461 evacuated, no deaths),
+next to Russia's biggest air strike of the month on Kyiv (111 missiles,
+404 drones, three Dnipro bridges hit) and COP31 closing with fossil
+fuels cut from the draft text — plus a big-number strip, ten more
+illustrated stories, 20 briefs, a world map with numbered dots, a
+markets box, and a DATE CHECK bar. Every story and its outlet are
+listed in STORIES.md.
 
-The lead is Cyclone Akvan's landfall on India's east coast, with
-300,000+ people evacuated. Next to it: Russia's overnight barrage
-on Kyiv — 110+ missiles, three Dnipro bridges hit, 8 killed — and
-the World Court's 9–6 ruling that Myanmar committed genocide
-against the Rohingya. Around them: COP31's final day in Antalya,
-the Shenzhen summit, the market sell-off, Britain's £260m drone
-package for Ukraine, a Houthi missile over Riyadh, the Pete Rose
-pardon, and 20 more briefs — with a world map, a big-number strip,
-region counts, and a DATE CHECK bar that says which items were
-announced on Thursday and which two candidate stories were left
-out for lack of verification. Every story and its outlet are listed
-in STORIES.md.
-
-## How it is built
-
-`draw.py` draws the page from scratch with PIL — masthead, numbers,
-features, ten small illustrations, map, briefs and the DATE CHECK
-bar — and writes `entry.png` (1024x1024, under 1 MiB). `main.py`
-copies that exact file to `$MAKEFUN_OUTPUT_DIR/entry.png`, so both
-grading runs produce identical bytes. No network is used at run
-time, and the drawing uses no clock or randomness.
+## Run it
 
 ```sh
-python3 draw.py
+python3 press.py
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 ```
+
+`press.py` draws the page with PIL and writes `entry.png`; `main.py`
+only copies that pre-rendered image into the output directory, so it
+runs with no network and writes nothing into the repository.
 
 ---
 
